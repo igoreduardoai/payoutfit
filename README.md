@@ -27,7 +27,7 @@ Captures from the local app on 13 November 2026, using the synthetic samples. Us
 5. PayPal sample, net deposit $151.86 — `docs/screenshots/05-paypal.png`
 6. Shopify sample, net deposit $141.71, adjustment on its own line — `docs/screenshots/06-shopify.png`
 7. Narrow viewport, PayPal sample — `docs/screenshots/07-mobile-paypal.png`
-8. Kane CLI NDJSON for the same flow — not captured. The CLI was not logged in here. See [How Kane CLI is used](#how-kane-cli-is-used).
+8. Kane CLI NDJSON for the same flow — captured 13 November 2026, America/Chicago (CST). See [How Kane CLI is used](#how-kane-cli-is-used) and `kane/traces/`.
 
 ![Stripe sample, net deposit $320.19](docs/screenshots/02-stripe-net-deposit.png)
 
@@ -42,7 +42,16 @@ Two committed flows:
 - `kane/flows/payout-reconcile_test.md` — import, net deposit $320.19, Chargebacks $89.50, export
 - `kane/flows/payout-mismatch_test.md` — mismatch sample, Needs review, suspense 15.00, export
 
-The Chargebacks check is deliberate. A bug that folds the chargeback into fees leaves the hero number at $320.19 and the journal still balanced. The breakdown is what goes wrong. That red run and the fix are written up in `kane/RED_GREEN.md`. The red and green commands were Vitest. Kane itself was not run.
+The Chargebacks check is deliberate. A bug that folds the chargeback into fees leaves the hero number at $320.19 and the journal still balanced. The breakdown is what goes wrong. That red run and the fix are written up in `kane/RED_GREEN.md`.
+
+On 13 November 2026, America/Chicago (CST), `@testmuai/kane-cli` 0.10.4 was logged in as `studentcnnbd` (OAuth profile `default`). Kane drove local Google Chrome, headless, against `http://127.0.0.1:5173`. No tunnel was used. Credits were 1200 before the first flow and 1037.9356 after the last. Dated NDJSON and Result.md copies are in `kane/traces/`. `~/.kane` was not present. Credentials are not in the repo.
+
+- payout-reconcile, first green, 09:27:52–09:29:51 CST, exit 0, 98s, `overall_status=passed`. Net deposit $320.19, Reconciled, Chargebacks $89.50, journal Bank deposit 320.19 and Chargebacks 89.50, debits equal credits. `kane/traces/2026-11-13T152752Z-payout-reconcile-green.ndjson`.
+- payout-mismatch, green, 09:30:10–09:31:58 CST, exit 0, 98s, `overall_status=passed`. Net deposit $335.19, Needs review, $15.00 flag, Suspense credit 15.00, export balanced. `kane/traces/2026-11-13T153010Z-payout-mismatch-green.ndjson`.
+- payout-reconcile, red, 09:32:41–09:34:16 CST, exit 1, 92s, `overall_status=failed`. The chargeback fault was served from a scratch worktree, not from the PR branch. Hero still $320.19 Reconciled. Breakdown failed: Fees $119.31, Chargebacks $0.00. Kane confirmed "Chargebacks folded into fees in payout breakdown". `kane/traces/2026-11-13T153241Z-payout-reconcile-red.ndjson`.
+- payout-reconcile, post-fix green, 09:34:57–09:36:18 CST, exit 0, 71s, `overall_status=passed`, after the PR-branch app was served again. Chargebacks $89.50 and the same journal checks passed. `kane/traces/2026-11-13T153457Z-payout-reconcile-green-after-fix.ndjson`.
+
+Earlier the same calendar day, before this login, `kane-cli whoami` printed "Not logged in" (exit 1) and a direct `testmd run` exited 2 with `Not authenticated`. That blocked check is still in `kane/traces/whoami.txt`, `kane/traces/hook-unrun.txt`, `kane/traces/auth-blocked.ndjson`, and `kane/traces/auth-blocked.stderr.txt`.
 
 `scripts/kane-run.sh` calls:
 
@@ -50,15 +59,13 @@ The Chargebacks check is deliberate. A bug that folds the chargeback into fees l
 kane-cli testmd run <flow> --agent --headless --timeout 300
 ```
 
-`--agent` writes NDJSON to stdout (one JSON object per line). The script stores that stream under `kane/runs/`. The event to script against is `run_end`. Exit codes follow the CLI: 0 passed, 1 failed, 2 error, 3 timeout.
+`--agent` writes NDJSON to stdout (one JSON object per line). The script stores that stream under `kane/runs/`. Those run files are gitignored. The copies that belong with the repo are in `kane/traces/`. The event to script against is `run_end`. Exit codes follow the CLI: 0 passed, 1 failed, 2 error, 3 timeout.
 
 `.cursor/hooks.json` runs `.cursor/hooks/kane-on-save.sh` on Cursor's `afterFileEdit` hook when a file under `src/`, `fixtures/`, `kane/flows/`, or `index.html` changes. The hook calls the same script. `failClosed` is false, so a failed or skipped run does not block the edit. The result is `kane/runs/last-status.txt`. Runs are debounced for 20 seconds.
 
 If `kane-cli` is missing, or `kane-cli whoami` says you are not logged in, or `http://127.0.0.1:5173` is down, the script writes `UNRUN` and the reason, and exits 0. It does not invent a pass.
 
-On 13 November 2026 this environment had `@testmuai/kane-cli` 0.10.4. `kane-cli whoami` printed "Not logged in" (exit 1). A direct `kane-cli testmd run kane/flows/payout-reconcile_test.md --agent --headless` then exited 2. Stderr said `Not authenticated`. Stdout was a single NDJSON `stream_start` line and no `run_end`. Chrome was not driven against the app. No username or access key is in the repo. The flows, the hook, and the script are in place. They are unrun. The recorded check is `kane/traces/whoami.txt`, `kane/traces/hook-unrun.txt`, `kane/traces/auth-blocked.ndjson`, and `kane/traces/auth-blocked.stderr.txt`.
-
-Docs used for the CLI, read that day:
+Docs used for the CLI:
 
 - [Install](https://www.testmuai.com/docs/kane-cli-installation)
 - [test.md format](https://www.testmuai.com/docs/kane-cli-testmd)
@@ -66,6 +73,7 @@ Docs used for the CLI, read that day:
 - [Authentication](https://www.testmuai.com/docs/kane-cli-authentication)
 - [Agent mode and NDJSON](https://www.testmuai.com/docs/kane-cli-modes)
 - [Cursor hooks](https://cursor.com/docs/hooks)
+- [Local browser testing](https://www.testmuai.com/local-browser-testing/)
 
 ### Run the flows when you have a login
 
@@ -87,7 +95,7 @@ npm run kane:mismatch
 
 `npm run kane` needs the dev server on port 5173. To pass basic auth for one run without `kane-cli login`, set `KANE_USERNAME` and `KANE_ACCESS_KEY` in the environment. The script forwards them as `--username` and `--access-key` and does not write them to disk.
 
-Chrome has to be installed. Kane CLI launches it. Add `--headless` is already in the script. The first successful run authors the steps and writes `output-*` next to the flow; later runs replay. Those output folders are produced by your run. They are not in this repo, because the flows have not been authored yet.
+Chrome has to be installed. Kane CLI launches it. `--headless` is already in the script. The first successful run authors the steps and writes `output-*` next to the flow; later runs replay. Those output folders are gitignored. The dated traces in `kane/traces/` are the committed record.
 
 ## How to run
 
@@ -158,7 +166,7 @@ Amounts are integer cents.
 - Mixed currencies are flagged and not converted.
 - A negative amount with no type is not guessed to be a refund or a chargeback.
 - The journal is a summary. It will not list every charge.
-- Kane CLI flows need Chrome, a TestMu AI login, and `npm run dev`. They were not executed in the build environment. Do not treat this README as a record that they passed.
+- Kane CLI flows need Chrome, a TestMu AI login, and `npm run dev`. The 13 November 2026 runs, including the red chargeback failure, are recorded in `kane/traces/` and `kane/RED_GREEN.md`. Do not treat a later unrun environment as a pass.
 - No deployment. The repo is not published from here.
 
 ## License

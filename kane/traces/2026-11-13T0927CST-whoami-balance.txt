@@ -1,0 +1,14 @@
+Kane CLI identity and credits — 13 November 2026, America/Chicago (CST)
+
+Command: npx -y @testmuai/kane-cli@0.10.4 whoami
+Result: Authenticated. Profile default. Environment prod. Method oauth. User studentcnnbd. Token valid.
+CLI version: 0.10.4 (kane-cli on PATH after install to ~/.local).
+Browser: local Google Chrome 156.0.8078.47, headless, against http://127.0.0.1:5173. No tunnel was used.
+
+Credits (kane-cli balance):
+- Before any Kane flow this session: 1200
+- After first green payout-reconcile (2026-11-13 09:29:51 CST): 1141.8173
+- After green payout-mismatch (2026-11-13 09:31:58 CST): 1087.0926
+- After red payout-reconcile with chargeback fault (2026-11-13 09:34:16 CST): 1069.7996
+- After post-fix green payout-reconcile (2026-11-13 09:36:18 CST): 1037.9356
+Net consumed this session: 162.0644
