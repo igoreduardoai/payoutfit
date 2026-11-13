@@ -1,2 +1,166 @@
-# payoutfit
-PayoutFit — Kane CLI Online Hackathon 2026
+# PayoutFit
+
+Freelance bookkeepers receive a processor payout export in which the bank deposit is not the gross sales figure. Fees, refunds, and chargebacks are in the same file. PayoutFit ties that file out on one screen and writes a journal CSV.
+
+Author: Igor Eduardo (igoreduardoai). Built for the Kane CLI Online Hackathon. Submission deadline 19 November 2026, 12:29 PM CST.
+
+## 5-second explanation
+
+Load a payout CSV. The big number is the net deposit. Export the journal.
+
+## Problem
+
+A payout export mixes charges, processor fees, refunds, chargebacks, and sometimes the payout row itself. The amount that should hit the bank is what is left after those movements. Entering gross sales as the deposit, or booking a chargeback as just another fee, puts the books out of balance in a way that still looks tidy.
+
+PayoutFit reads a CSV shaped like a Stripe, PayPal, or Shopify payout export, computes the net deposit, and shows where it disagrees with the payout amount stated in the file. It then downloads a journal with the columns `date`, `account`, `memo`, `debit`, and `credit`.
+
+The app does not connect to those processors. The bundled files are synthetic. Nothing is uploaded.
+
+## Screenshots
+
+Captures from the local app on 13 November 2026, using the synthetic samples. Use this list for a demo of three minutes or less.
+
+1. Empty state — `docs/screenshots/01-empty.png`
+2. Stripe sample, net deposit $320.19, status Reconciled — `docs/screenshots/02-stripe-net-deposit.png`
+3. Stripe journal after export, including Chargebacks 89.50 — `docs/screenshots/03-stripe-journal.png`
+4. Mismatch sample, net deposit $335.19, Needs review, $15.00 flag — `docs/screenshots/04-mismatch.png`
+5. PayPal sample, net deposit $151.86 — `docs/screenshots/05-paypal.png`
+6. Shopify sample, net deposit $141.71, adjustment on its own line — `docs/screenshots/06-shopify.png`
+7. Narrow viewport, PayPal sample — `docs/screenshots/07-mobile-paypal.png`
+8. Kane CLI NDJSON for the same flow — not captured. The CLI was not logged in here. See [How Kane CLI is used](#how-kane-cli-is-used).
+
+![Stripe sample, net deposit $320.19](docs/screenshots/02-stripe-net-deposit.png)
+
+![Mismatch sample, stated payout $15.00 high](docs/screenshots/04-mismatch.png)
+
+## How Kane CLI is used
+
+Kane CLI is the proof layer, not the product. It drives the running app in Chrome: load the Stripe sample, read the net deposit, read the chargeback line, export the journal.
+
+Two committed flows:
+
+- `kane/flows/payout-reconcile_test.md` — import, net deposit $320.19, Chargebacks $89.50, export
+- `kane/flows/payout-mismatch_test.md` — mismatch sample, Needs review, suspense 15.00, export
+
+The Chargebacks check is deliberate. A bug that folds the chargeback into fees leaves the hero number at $320.19 and the journal still balanced. The breakdown is what goes wrong. That red run and the fix are written up in `kane/RED_GREEN.md`. The red and green commands were Vitest. Kane itself was not run.
+
+`scripts/kane-run.sh` calls:
+
+```bash
+kane-cli testmd run <flow> --agent --headless --timeout 300
+```
+
+`--agent` writes NDJSON to stdout (one JSON object per line). The script stores that stream under `kane/runs/`. The event to script against is `run_end`. Exit codes follow the CLI: 0 passed, 1 failed, 2 error, 3 timeout.
+
+`.cursor/hooks.json` runs `.cursor/hooks/kane-on-save.sh` on Cursor's `afterFileEdit` hook when a file under `src/`, `fixtures/`, `kane/flows/`, or `index.html` changes. The hook calls the same script. `failClosed` is false, so a failed or skipped run does not block the edit. The result is `kane/runs/last-status.txt`. Runs are debounced for 20 seconds.
+
+If `kane-cli` is missing, or `kane-cli whoami` says you are not logged in, or `http://127.0.0.1:5173` is down, the script writes `UNRUN` and the reason, and exits 0. It does not invent a pass.
+
+On 13 November 2026 this environment had `@testmuai/kane-cli` 0.10.4. `kane-cli whoami` printed "Not logged in" (exit 1). A direct `kane-cli testmd run kane/flows/payout-reconcile_test.md --agent --headless` then exited 2. Stderr said `Not authenticated`. Stdout was a single NDJSON `stream_start` line and no `run_end`. Chrome was not driven against the app. No username or access key is in the repo. The flows, the hook, and the script are in place. They are unrun. The recorded check is `kane/traces/whoami.txt`, `kane/traces/hook-unrun.txt`, `kane/traces/auth-blocked.ndjson`, and `kane/traces/auth-blocked.stderr.txt`.
+
+Docs used for the CLI, read that day:
+
+- [Install](https://www.testmuai.com/docs/kane-cli-installation)
+- [test.md format](https://www.testmuai.com/docs/kane-cli-testmd)
+- [Running test.md](https://www.testmuai.com/docs/kane-cli-testmd-running)
+- [Authentication](https://www.testmuai.com/docs/kane-cli-authentication)
+- [Agent mode and NDJSON](https://www.testmuai.com/docs/kane-cli-modes)
+- [Cursor hooks](https://cursor.com/docs/hooks)
+
+### Run the flows when you have a login
+
+Install the CLI (Node 18+) and sign in. Credentials stay in your environment or in the CLI's own profile. Do not commit them.
+
+```bash
+npm install -g @testmuai/kane-cli
+kane-cli login
+npm install
+npm run dev
+```
+
+In a second terminal, from this repo:
+
+```bash
+npm run kane
+npm run kane:mismatch
+```
+
+`npm run kane` needs the dev server on port 5173. To pass basic auth for one run without `kane-cli login`, set `KANE_USERNAME` and `KANE_ACCESS_KEY` in the environment. The script forwards them as `--username` and `--access-key` and does not write them to disk.
+
+Chrome has to be installed. Kane CLI launches it. Add `--headless` is already in the script. The first successful run authors the steps and writes `output-*` next to the flow; later runs replay. Those output folders are produced by your run. They are not in this repo, because the flows have not been authored yet.
+
+## How to run
+
+```bash
+npm install
+npm run dev
+```
+
+Open http://127.0.0.1:5173. Use **Load Stripe sample**, **Load PayPal sample**, **Load Shopify sample**, or **Load mismatch sample**. Or import your own CSV. **Export bookkeeping CSV** downloads the journal.
+
+```bash
+npm test
+npm run build
+npm run preview
+```
+
+`npm run preview` serves the static build at http://127.0.0.1:4173. The Kane flows are pointed at port 5173, so use `npm run dev` when you run them. A sample deep link works on either server: `http://127.0.0.1:5173/?sample=stripe-balanced`.
+
+There is no backend and no API key.
+
+### Samples
+
+| File | What it is | Net deposit |
+| --- | --- | --- |
+| `fixtures/stripe-payout-balanced.csv` | Stripe-style itemization, payout row matches | $320.19 |
+| `fixtures/paypal-payout-balanced.csv` | PayPal-style signed fees, chargeback fee separate from principal | $151.86 |
+| `fixtures/shopify-payout-balanced.csv` | Shopify-style payout with an adjustment and no payout row | $141.71 |
+| `fixtures/stripe-payout-mismatch.csv` | Same movements as the Stripe sample, stated payout $15.00 high | $335.19, flagged |
+
+Every description and id in those files is marked synthetic.
+
+### Columns the importer accepts
+
+| Role | Headers |
+| --- | --- |
+| Gross | `gross`, `amount` |
+| Fee | `fee`, `fees` |
+| Net | `net` |
+| Type | `type`, `reporting_category` |
+| Id | `id`, `transaction_id`, `balance_transaction_id` |
+| Payout id | `payout_id`, `automatic_payout_id` |
+| Payout date | `payout_date`, `automatic_payout_effective_at`, `available_on` |
+| Activity date | `date`, `transaction_date`, `created` |
+| Currency | `currency` |
+| Memo source | `description`, `item_title`, `order`, `memo` |
+
+A file needs gross (or amount) and net. Stripe-style, PayPal-style, and Shopify-style layouts are detected from the header. Anything else with gross and net is read as a generic payout.
+
+### What the math does
+
+Amounts are integer cents.
+
+- Charges add to gross sales. The fee column adds to fees.
+- Stripe-style fees are a positive cost: `net = gross − fee`. PayPal-style fees are signed: `net = gross + fee`. A row that matches neither is flagged and its net is kept as unclassified.
+- Refunds and chargebacks add the absolute gross to those accounts. A chargeback fee on the same row stays in fees. A row whose type is "chargeback fee" or "dispute fee" is only a fee.
+- Adjustments stay on their own line, signed.
+- A payout, transfer, or withdrawal row is the stated deposit. It is not counted as a sale. The hero number is that stated deposit when the row exists, and the computed net otherwise.
+- Computed net is the sum of the activity nets. It also equals gross sales − fees − refunds − chargebacks + adjustments + unclassified. A gap between those two is flagged.
+- If the stated payout differs, the hero shows the stated amount, a mismatch flag shows the difference, and the journal parks that difference in **Suspense — payout difference** so debit still equals credit.
+- A repeated transaction id is flagged. The later copy is left out of the totals.
+- The journal is one summary entry, not one line per transaction. Dates are `YYYY-MM-DD`. Debit and credit cells are plain two-decimal numbers, blank on the unused side. The file is UTF-8 with a BOM and CRLF. A cell that starts with `=`, `+`, `-`, or `@` is prefixed so a spreadsheet treats it as text.
+
+## Limitations
+
+- Synthetic samples and files you import. No Stripe, PayPal, or Shopify API, and no live payouts.
+- One file at a time. The account names are fixed. They are not your chart of accounts.
+- Slash dates are read as MM/DD/YYYY.
+- Mixed currencies are flagged and not converted.
+- A negative amount with no type is not guessed to be a refund or a chargeback.
+- The journal is a summary. It will not list every charge.
+- Kane CLI flows need Chrome, a TestMu AI login, and `npm run dev`. They were not executed in the build environment. Do not treat this README as a record that they passed.
+- No deployment. The repo is not published from here.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

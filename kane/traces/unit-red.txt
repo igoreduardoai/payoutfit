@@ -1,0 +1,85 @@
+
+ RUN  v3.2.7 /workspace
+
+ ❯ tests/reconcile.test.ts (12 tests | 2 failed) 18ms
+   ✓ parseMoneyToCents > parses symbols, commas, parentheses, and half-up rounding 1ms
+   × synthetic payout fixtures > ties the Stripe-style sample to a $320.19 deposit and keeps the chargeback 9ms
+     → expected 11931 to be 2981 // Object.is equality
+   × synthetic payout fixtures > reads a PayPal-style signed fee and does not treat the chargeback fee as principal 2ms
+     → expected 4814 to be 2314 // Object.is equality
+   ✓ synthetic payout fixtures > keeps a Shopify-style adjustment on its own line 1ms
+   ✓ synthetic payout fixtures > flags a stated payout that is $15.00 above the components and credits suspense 1ms
+   ✓ edge cases > debits suspense when the stated payout is short 0ms
+   ✓ edge cases > drops a repeated transaction id from the totals 0ms
+   ✓ edge cases > flags a row whose net matches neither fee convention and keeps the net 0ms
+   ✓ edge cases > flags mixed currencies and does not convert them 0ms
+   ✓ edge cases > refuses a file without the columns it needs 0ms
+   ✓ edge cases > refuses an empty file 0ms
+   ✓ journal csv > writes a UTF-8 BOM, CRLF, and spreadsheet-safe cells 1ms
+ ❯ tests/render.test.ts (2 tests | 1 failed) 16ms
+   × hero screen > shows the Stripe net deposit, the chargeback, and a balanced journal 12ms
+     → expected '$0.00' to be '$89.50' // Object.is equality
+   ✓ hero screen > shows the mismatch flag on the sample that does not tie 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reconcile.test.ts > synthetic payout fixtures > ties the Stripe-style sample to a $320.19 deposit and keeps the chargeback
+AssertionError: expected 11931 to be 2981 // Object.is equality
+
+- Expected
++ Received
+
+- 2981
++ 11931
+
+ ❯ tests/reconcile.test.ts:41:47
+     39|     expect(reconciliation.lines[0]?.description).toBe("Synthetic invoi…
+     40|     expect(reconciliation.breakdown.grossSalesCents).toBe(47950);
+     41|     expect(reconciliation.breakdown.feeCents).toBe(2981);
+       |                                               ^
+     42|     expect(reconciliation.breakdown.refundCents).toBe(4000);
+     43|     expect(reconciliation.breakdown.chargebackCents).toBe(8950);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/reconcile.test.ts > synthetic payout fixtures > reads a PayPal-style signed fee and does not treat the chargeback fee as principal
+AssertionError: expected 4814 to be 2314 // Object.is equality
+
+- Expected
++ Received
+
+- 2314
++ 4814
+
+ ❯ tests/reconcile.test.ts:60:47
+     58|     expect(reconciliation.processor).toBe("paypal");
+     59|     expect(reconciliation.breakdown.grossSalesCents).toBe(26000);
+     60|     expect(reconciliation.breakdown.feeCents).toBe(2314);
+       |                                               ^
+     61|     expect(reconciliation.breakdown.refundCents).toBe(6000);
+     62|     expect(reconciliation.breakdown.chargebackCents).toBe(2500);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/render.test.ts > hero screen > shows the Stripe net deposit, the chargeback, and a balanced journal
+AssertionError: expected '$0.00' to be '$89.50' // Object.is equality
+
+Expected: "$89.50"
+Received: "$0.00"
+
+ ❯ tests/render.test.ts:19:76
+     17|     expect(host.querySelector("[data-testid='net-deposit']")?.textCont…
+     18|     expect(host.querySelector("[data-testid='status']")?.textContent).…
+     19|     expect(host.querySelector("[data-testid='chargebacks']")?.textCont…
+       |                                                                            ^
+     20|     expect(host.querySelector("[data-testid='fees']")?.textContent).to…
+     21|     expect(host.querySelector("[data-testid='journal-balance']")?.text…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 11 passed (14)
+   Start at  15:13:14
+   Duration  354ms (transform 138ms, setup 0ms, collect 156ms, tests 33ms, environment 136ms, prepare 82ms)
+

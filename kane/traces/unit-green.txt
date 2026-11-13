@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 /workspace
+
+ ✓ tests/reconcile.test.ts (12 tests) 10ms
+ ✓ tests/render.test.ts (2 tests) 14ms
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  15:13:22
+   Duration  388ms (transform 156ms, setup 0ms, collect 202ms, tests 25ms, environment 144ms, prepare 84ms)
+
