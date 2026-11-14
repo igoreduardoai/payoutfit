@@ -1,0 +1,24 @@
+sponsor: Kane CLI
+flagship: Kane CLI test.md
+capabilities:
+  - name: Kane CLI test.md
+    on_critical_path: true
+    flagship: true
+    role: "Drives the payout-reconcile flow in Chrome: load the Stripe sample, read the breakdown, and export the journal."
+  - name: Kane CLI agent NDJSON
+    on_critical_path: true
+    flagship: false
+    role: "Writes one JSON object per line, including the failed assertion, which scripts/kane-loop.mjs turns into the fix brief."
+  - name: Kane CLI headless local Chrome
+    on_critical_path: true
+    flagship: false
+    role: "Runs that flow with --headless against http://127.0.0.1:5173 and does not open a tunnel."
+unexpected_capability: "The red run's bug verdict named the fault: Chargebacks folded into fees in payout breakdown."
+open_or_local:
+  answer: "yes"
+  reason: "The 13 Nov 2026 runs used local Chrome, headless, at 127.0.0.1:5173, with no tunnel."
+comparison:
+  plan: "Kane read Chargebacks on the breakdown in the red trace, where the chargeback was folded into fees, and again in the green-after-fix trace. The hero amount stayed 320.19 both times."
+  metric: "Chargebacks dollars"
+  without: 0
+  with: 89.5

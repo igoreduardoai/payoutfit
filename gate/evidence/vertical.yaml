@@ -1,0 +1,5 @@
+horizontal_tool: false
+person_role: "freelance bookkeeper"
+task: "Tie a processor payout export to the bank deposit and book the fees, refunds, and chargebacks."
+workaround: "A spreadsheet that treats the gross as the deposit, or folds a chargeback into fees."
+summary: "This is the intended reader of the screen. It is not a confirmed customer and not a claim of demand."

@@ -1,0 +1,22 @@
+rounds:
+  - kind: kane-cli
+    n: 1
+    date: "2026-11-13"
+    trace: kane/traces/2026-11-13T152752Z-payout-reconcile-green.ndjson
+    note: "First green payout-reconcile. Exit 0, overall_status passed, 98s. Chargebacks 89.50."
+  - kind: kane-cli
+    n: 2
+    date: "2026-11-13"
+    trace: kane/traces/2026-11-13T153010Z-payout-mismatch-green.ndjson
+    note: "Green payout-mismatch. Exit 0, overall_status passed, 98s. Net deposit 335.19 and a 15.00 suspense line."
+  - kind: kane-cli
+    n: 3
+    date: "2026-11-13"
+    trace: kane/traces/2026-11-13T153241Z-payout-reconcile-red.ndjson
+    note: "Red payout-reconcile on a scratch worktree. Exit 1, overall_status failed, 92s. The breakdown assertion failed. Bug title: Chargebacks folded into fees in payout breakdown. Observed fees 119.31 and chargebacks 0.00. Vitest on that worktree failed 3 and passed 11, in kane/traces/2026-11-13T153232CST-unit-red.txt."
+  - kind: kane-cli
+    n: 4
+    date: "2026-11-13"
+    trace: kane/traces/2026-11-13T153457Z-payout-reconcile-green-after-fix.ndjson
+    note: "Green after the fixed app was served again. Exit 0, overall_status passed, 71s. Chargebacks 89.50. Vitest on the PR branch passed 14, in kane/traces/2026-11-13T1534CST-unit-green.txt."
+note: "These are the real Kane CLI runs from 13 Nov 2026. This gate counts a person, a leaderboard, or two models with the rubric copied. Kane is none of those, so the log stays a fail instead of relabeling the traces."

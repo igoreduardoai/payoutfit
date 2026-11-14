@@ -1,0 +1,11 @@
+sponsor_page_url: https://www.kaneclihack.sh/
+sponsor_already_advertises: false
+use_case_compared: "Reconcile a processor payout CSV to a net deposit and a bookkeeping journal."
+unexpected_angle: ""
+note: "Page read on 14 Nov 2026. It asks builders to verify any app with Kane CLI. It does not describe payout journals. Gallery check is not done. Needed: open the hackathon gallery or Discord, count entries with the same differentiator, and record the date and the place. If that differentiator is already common, write the new headline here. This file does not invent that count."
+gallery_check:
+  date: null
+  where: ""
+  competitors_with_same_differentiator: null
+  differentiator_common: null
+  changed_headline: ""

@@ -1,0 +1,12 @@
+signal: null
+what_confirmed: "No one outside this repo has confirmed the journal. Needed: a bookkeeper or another third party who imports the synthetic CSV and says whether it balances, with their name and the date. Vitest and the Kane runs are our own checks."
+confirm_by: null
+confirmer: ""
+benchmark: ""
+status: "not started"
+own_checks_only: true
+evidence_ref: ""
+who_confirmed: ""
+confirmed_on: null
+holdout_untouched: false
+iterations: []

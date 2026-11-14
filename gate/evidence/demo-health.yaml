@@ -1,0 +1,19 @@
+url: "http://127.0.0.1:4173/?sample=stripe-balanced"
+status: null
+anonymous: false
+checked_at: null
+monitor:
+  workflow: ""
+  cron: ""
+  until_judging_ends: false
+access:
+  mode: ""
+  one_click: false
+  our_key_required: false
+  judge_password_documented: false
+  run_cap: null
+replay:
+  present: true
+  role: backup
+  path: "kane/traces/2026-11-13T153457Z-payout-reconcile-green-after-fix.ndjson"
+note: "Not a hosted demo. Needed: a stable https URL on vercel.app or hf.space, a /health check that stays up through judging, and jury access with no key or a documented judge password plus a run cap. npm start serves this machine only. The Kane trace is a backup, not the demo. Nothing here is deployed."

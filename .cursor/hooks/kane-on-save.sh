@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Cursor afterFileEdit hook. Runs the PayoutFit Kane flow when source, fixtures, or flows change.
+# Cursor afterFileEdit hook. Runs the PayoutFit Kane flow when source, fixtures, or flows change,
+# then scripts/kane-loop.mjs reads the NDJSON and writes kane/last-failure.md for the agent.
 # Exits 0 when there is nothing to do, or when Kane cannot run (see kane/runs/last-status.txt).
-# A real Kane failure keeps Kane's exit code. hooks.json leaves failClosed off, so the edit is not blocked.
+# A real Kane failure is parsed and the parser's non-zero exit is kept.
+# hooks.json leaves failClosed off, so the edit is not blocked.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"

@@ -1,0 +1,37 @@
+{
+  "ok": false,
+  "source": "kane/traces/2026-11-13T153241Z-payout-reconcile-red.ndjson",
+  "overallStatus": "failed",
+  "bugTitle": "Chargebacks folded into fees in payout breakdown",
+  "bugOneLiner": "The payout breakdown reports the chargeback as zero and adds it to fees instead.",
+  "failures": [
+    {
+      "stepIndex": 2,
+      "heading": "Read the breakdown",
+      "assertion": "the breakdown shows Gross sales $479.50, Fees $29.81, Refunds $40.00, and Chargebacks $89.50; Chargebacks does not show $0.00",
+      "passed": false,
+      "reason": "assertion_failed: @ step 6",
+      "observed": {
+        "gross_sales_amount_check": "$479.50",
+        "fees_amount_check": "$119.31",
+        "refunds_amount_check": "$40.00",
+        "chargebacks_amount_check": "$0.00",
+        "chargebacks_not_zero_check": "$0.00"
+      }
+    },
+    {
+      "stepIndex": 2,
+      "heading": "Read the breakdown",
+      "assertion": "the breakdown shows Gross sales $479.50, Fees $29.81, Refunds $40.00, and Chargebacks $89.50; Chargebacks does not show $0.00.",
+      "passed": false,
+      "reason": "Final verification failed: \"the breakdown shows Gross sales $479.50, Fees $29.81, Refunds $40.00, and Chargebacks $89.50; Chargebacks does not show $0.00.\"",
+      "observed": {
+        "gross_sales_amount_check": "$479.50",
+        "refunds_amount_check": "$40.00",
+        "fees_amount_check": "$119.31",
+        "chargebacks_amount_check": "$0.00",
+        "chargebacks_zero_amount_absent": "true"
+      }
+    }
+  ]
+}

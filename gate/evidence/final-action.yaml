@@ -1,0 +1,7 @@
+kind: csv_export
+one_line: "Exports a balanced journal CSV a bookkeeper imports into a ledger."
+ran_in_sponsor_sandbox: false
+observed_result: "Kane CLI 0.10.4 on 13 Nov 2026, trace 2026-11-13T153457Z, confirmed the on-screen journal: Bank deposit debit 320.19, Chargebacks debit 89.50, debits equal credits. gate/evidence/stripe-balanced-journal.csv is the app export of the synthetic Stripe sample. Debits and credits are both 479.50."
+simulated: true
+simulation_reason: "No bookkeeper has imported this file. The CSV is the app's export of the synthetic Stripe sample, and Kane confirmed the same amounts on screen. That is not a person dropping the file into a ledger."
+delivery_alternative: "A bookkeeper imports gate/evidence/stripe-balanced-journal.csv into the ledger."
