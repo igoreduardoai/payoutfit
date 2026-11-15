@@ -1,0 +1,4 @@
+automatic_payout_id,automatic_payout_effective_at,balance_transaction_id,currency,gross,fee,net,reporting_category,description
+po_synth_h2,2026-11-05,txn_synth_h2_chg,usd,80.00,2.62,77.38,charge,Synthetic card payment
+po_synth_h2,2026-11-05,txn_synth_h2_ref,usd,-25.00,0.00,-25.00,refund,Synthetic partial refund
+po_synth_h2,2026-11-05,txn_synth_h2_po,usd,-52.38,0.00,-52.38,payout,Synthetic payout
