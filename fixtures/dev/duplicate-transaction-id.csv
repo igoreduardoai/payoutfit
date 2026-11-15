@@ -1,0 +1,4 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-d3,po_synth_d3,2026-11-11,2026-11-10,USD,18.00,0.82,17.18,charge,Synthetic duplicate transaction id
+synth-d3,po_synth_d3,2026-11-11,2026-11-10,USD,18.00,0.82,17.18,charge,Synthetic duplicate transaction id
+synth-d3-po,po_synth_d3,2026-11-11,2026-11-11,USD,-17.18,0.00,-17.18,payout,Synthetic payout

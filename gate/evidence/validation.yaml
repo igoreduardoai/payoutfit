@@ -1,17 +1,21 @@
 pytest: "not-run"
-playwright_e2e: "not-run"
-axe_violations: null
-lighthouse_hero: null
-gold_untouched: false
-holdout_untouched: false
+playwright_e2e: pass
+axe_violations: 0
+lighthouse_hero: 100
+gold_untouched: true
+holdout_untouched: true
+unit_runner: vitest
 commands:
   - command: npm test
-    when: "2026-11-14"
-    result: "Vitest 3.2.7 passed 19 tests in 3 files: reconcile 12, kane-loop 5, render 2. Before the parser tests, the same suite was 14 passing tests."
+    when: "2026-11-15"
+    result: "Vitest 3.2.7 passed 30 tests in 6 files: reconcile 12, dev fixtures 8, kane-loop 5, render 2, holdout 2, fixture inventory 1."
+  - command: npm run test:e2e
+    when: "2026-11-15"
+    result: "Playwright passed 3 tests against npm start at http://127.0.0.1:4173. The Stripe hero showed net deposit $320.19, Reconciled, and Chargebacks $89.50. The mismatch button showed $335.19 and Needs review. axe-core on that hero reported 0 violations."
+  - command: npm run lighthouse
+    when: "2026-11-15T15:17:41.660Z"
+    result: "Lighthouse 12.8.2, mobile, on http://127.0.0.1:4173/?sample=stripe-balanced. Category scores: performance 100, accessibility 100, best-practices 100, seo 100. lighthouse_hero is the performance score. Three diagnostic audits still scored 0 (render-blocking-resources, network-dependency-tree-insight, render-blocking-insight) and did not lower the category scores. See gate/evidence/lighthouse-hero.json."
   - command: npm run build
-    when: "2026-11-14"
+    when: "2026-11-15"
     result: "tsc --noEmit and vite build finished. The build wrote dist/index.html, one css file, and one js file."
-  - command: npm start
-    when: "2026-11-14"
-    result: "Dependencies were already installed and dist was removed. The script printed Ready in 2.08s. Headless Chrome then showed Net deposit $320.19, Reconciled, and Chargebacks $89.50. Wall clock from npm start to that page was 2.47s."
-note: "No pytest, Playwright, axe, or Lighthouse run is recorded. There is no untouched gold set and no holdout. Vitest is the suite this repo runs. The 13 Nov traces record 14 passing tests on the fixed branch and 3 failing tests on the scratch worktree."
+note: "The unit runner is Vitest. pytest was not run, and this file does not call that result a pass. Playwright, axe, and Lighthouse were run headless on the built hero. The gold file is fixtures/holdout/expected.json, written from the README money rules before the app reconciled those files, and not edited after. The holdout was not used to change the reconciler. Bundle hash eeaa04628302fe4e6a1a14d9bed611771b7659df7c431e24d11d5b79618f9aa7. The gate checker still requires the string pytest pass, so this item stays failed."

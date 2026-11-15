@@ -128,8 +128,12 @@ Open http://127.0.0.1:5173. Use **Load Stripe sample**, **Load PayPal sample**, 
 ```bash
 npm test
 npm run build
+npm run test:e2e
+npm run lighthouse
 npm run preview
 ```
+
+On 15 November 2026, `npm test` passed 30 Vitest tests in 6 files. `npm run test:e2e` passed 3 Playwright tests against `npm start`: the Stripe hero showed net deposit $320.19, Reconciled, and Chargebacks $89.50, and the mismatch sample showed $335.19 and Needs review. axe-core on that hero reported 0 violations. `npm run lighthouse` (Lighthouse 12.8.2, mobile) scored performance 100, accessibility 100, best-practices 100, and seo 100. Three diagnostic audits still scored 0 and did not lower those category scores. The summary is `gate/evidence/lighthouse-hero.json`. pytest was not run. Vitest is the runner.
 
 `npm run preview` serves the static build at http://127.0.0.1:4173. The Kane flows are pointed at port 5173, so use `npm run dev` when you run them. A sample deep link works on either server: `http://127.0.0.1:5173/?sample=stripe-balanced`.
 
@@ -144,7 +148,13 @@ There is no backend and no API key.
 | `fixtures/shopify-payout-balanced.csv` | Shopify-style payout with an adjustment and no payout row | $141.71 |
 | `fixtures/stripe-payout-mismatch.csv` | Same movements as the Stripe sample, stated payout $15.00 high | $335.19, flagged |
 
-Every description and id in those files is marked synthetic.
+Every description and id in those files is marked synthetic. The Shopify sample uses a memo column for that label.
+
+### Dev set and holdout
+
+There are 20 synthetic CSV files. Twelve are the dev set: the four samples above and eight files in `fixtures/dev/`. Eight files in `fixtures/holdout/` were written with hand totals in `expected.json` and hashed before the app reconciled them. The bundle hash is `eeaa04628302fe4e6a1a14d9bed611771b7659df7c431e24d11d5b79618f9aa7` (`fixtures/holdout/BUNDLE_SHA256.txt`). On 15 November 2026 the holdout test agreed with all eight hand totals. Those files were not edited after the hash.
+
+The set covers fee rounding, partial refunds, currency minor units, duplicate payout ids, a missing fee leg, a timezone date shift, and a reversed sign. No file is a customer, merchant, or company export.
 
 ### Columns the importer accepts
 
@@ -173,7 +183,9 @@ Amounts are integer cents.
 - Adjustments stay on their own line, signed.
 - A payout, transfer, or withdrawal row is the stated deposit. It is not counted as a sale. The hero number is that stated deposit when the row exists, and the computed net otherwise.
 - Computed net is the sum of the activity nets. It also equals gross sales − fees − refunds − chargebacks + adjustments + unclassified. A gap between those two is flagged.
-- If the stated payout differs, the hero shows the stated amount, a mismatch flag shows the difference, and the journal parks that difference in **Suspense — payout difference** so debit still equals credit.
+- If the stated payout differs, the hero shows the stated amount, a mismatch flag shows the difference, and the journal parks that difference in **Suspense — payout difference**. That brings the columns back together when the component amounts are not negative. A charge with a negative gross still flags, and a positive payout row beside it does not balance. `fixtures/dev/reversed-sign-charge.csv` is that case: debits 12.00, credits 36.00.
+- A third decimal digit rounds half-up into cents. A zero-decimal currency is still read with two decimal places, so a whole-number JPY cell is stored as cents.
+- An ISO timestamp keeps the calendar date in the first ten characters. `2026-11-04T04:30:00Z` is 3 November in America/Chicago and 4 November on the journal.
 - A repeated transaction id is flagged. The later copy is left out of the totals.
 - The journal is one summary entry, not one line per transaction. Dates are `YYYY-MM-DD`. Debit and credit cells are plain two-decimal numbers, blank on the unused side. The file is UTF-8 with a BOM and CRLF. A cell that starts with `=`, `+`, `-`, or `@` is prefixed so a spreadsheet treats it as text.
 
@@ -181,13 +193,15 @@ Amounts are integer cents.
 
 - Synthetic samples and files you import. No Stripe, PayPal, or Shopify API, and no live payouts.
 - One file at a time. The account names are fixed. They are not your chart of accounts.
-- Slash dates are read as MM/DD/YYYY.
+- Slash dates are read as MM/DD/YYYY. ISO timestamps are not shifted into America/Chicago.
+- A third decimal is rounded into cents. A zero-decimal currency is not given its own minor-unit width.
+- A charge with a negative gross is flagged and still booked as a sale. Next to a positive payout row, the journal does not balance.
 - Mixed currencies are flagged and not converted.
 - A negative amount with no type is not guessed to be a refund or a chargeback.
 - The journal is a summary. It will not list every charge.
 - Kane CLI flows need Chrome, a TestMu AI login, and `npm run dev`. The 13 November 2026 runs, including the red chargeback failure, are recorded in `kane/traces/` and `kane/RED_GREEN.md`. Do not treat a later unrun environment as a pass.
 - No deployment. The repo is not published from here. `npm start` serves this machine only.
-- The mid-stage winner-gap package is `gate/`. On 14 November 2026 it failed. The blocking items were B1-five-second, B4-gallery-check, B5-demo-health, and B7-external-confirmation. Those need a person, a gallery check, a hosted URL, or someone outside this repo. The files say so. The gate was not weakened to make them pass.
+- The mid-stage winner-gap package is `gate/`. On 14 November 2026 it failed, advisory 0/5, with blocking failures B1-five-second, B4-gallery-check, B5-demo-health, and B7-external-confirmation. On 15 November 2026 the same checker still failed those four. Advisory was 2/5: alternatives and the 20-case set passed. Validation stayed failed because the checker requires `pytest: pass` and this repo's suite is Vitest. The recorded Playwright, axe, and Lighthouse runs are in `gate/evidence/validation.yaml`. The gate was not weakened to make the remaining items pass.
 
 ## License
 

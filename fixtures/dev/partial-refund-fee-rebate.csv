@@ -1,0 +1,4 @@
+Date,Type,Currency,Gross,Fee,Net,Transaction ID,Item Title
+11/12/2026,Express Checkout Payment,USD,120.00,-3.78,116.22,SYNTH-D2-CHG,Synthetic order
+11/12/2026,Payment Refund,USD,-30.00,0.90,-29.10,SYNTH-D2-REF,Synthetic partial refund
+11/12/2026,User Initiated Withdrawal,USD,-87.12,0.00,-87.12,SYNTH-D2-PO,Synthetic withdrawal

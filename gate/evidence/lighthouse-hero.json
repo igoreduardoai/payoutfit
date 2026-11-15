@@ -1,0 +1,31 @@
+{
+  "url": "http://127.0.0.1:4173/?sample=stripe-balanced",
+  "fetchedAt": "2026-11-15T15:17:41.660Z",
+  "lighthouseVersion": "12.8.2",
+  "formFactor": "mobile",
+  "categories": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "requestedUrl": "http://127.0.0.1:4173/?sample=stripe-balanced",
+  "finalUrl": "http://127.0.0.1:4173/?sample=stripe-balanced",
+  "belowPerfect": [
+    {
+      "id": "render-blocking-resources",
+      "title": "Eliminate render-blocking resources",
+      "score": 0
+    },
+    {
+      "id": "network-dependency-tree-insight",
+      "title": "Network dependency tree",
+      "score": 0
+    },
+    {
+      "id": "render-blocking-insight",
+      "title": "Render blocking requests",
+      "score": 0
+    }
+  ]
+}

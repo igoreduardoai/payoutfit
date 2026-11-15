@@ -1,2 +1,7 @@
-case_count: 4
-note: "Four synthetic fixture CSVs: Stripe balanced, PayPal balanced, Shopify balanced, and Stripe mismatch. That is still a handful of our own files."
+case_count: 20
+synthetic: true
+dev_cases: 12
+holdout_cases: 8
+holdout_sha256: eeaa04628302fe4e6a1a14d9bed611771b7659df7c431e24d11d5b79618f9aa7
+holdout_created_first: true
+note: "Twenty synthetic payout files. Twelve are the dev set: the four original samples plus eight files in fixtures/dev. Eight holdout files in fixtures/holdout were written with hand totals and hashed before the app reconciled them. The bundle hash is fixtures/holdout/BUNDLE_SHA256.txt. No customer, merchant, or company payout is in the set. On 15 Nov 2026 the holdout runner agreed with all eight hand totals, and those files were not edited afterward."

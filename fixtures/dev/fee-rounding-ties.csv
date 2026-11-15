@@ -1,0 +1,3 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-d1-chg,po_synth_d1,2026-11-12,2026-11-11,USD,9.995,0.000,10.00,charge,Synthetic fee rounding that ties
+synth-d1-po,po_synth_d1,2026-11-12,2026-11-12,USD,-10.00,0.00,-10.00,payout,Synthetic payout
