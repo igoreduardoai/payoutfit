@@ -1,0 +1,6 @@
+official_rules_url: https://www.kaneclihack.sh/
+read_on: "2026-11-14"
+timezone: America/Chicago
+eligibility_notes: "Read on 14 Nov 2026 from that page. Anyone 18 or older, solo or up to four, must sign up on testmuai.com and run Kane CLI. The repo must be initialized on or after 12 Nov 2026. Employees of TestMu AI and participating partners are not eligible. The page shows the deadline as 19 Nov 2026, 11:59 PM IST, and 10:29 AM PT. This read is not a claim that the page was opened before the 13 Nov commits."
+visibility_required: "That page says the GitHub repo must be public at submission. This repo is still private."
+source_checked: official

@@ -70,4 +70,14 @@ fi
 write_status "RAN" "exit: $code" "flow: $FLOW" "ndjson: $ndjson" "stderr: $stderr_log" "at: $STAMP" "last: $last"
 echo "Kane exit ${code}"
 echo "NDJSON: ${ndjson}"
+
+if [ -s "$ndjson" ]; then
+  set +e
+  node "$ROOT/scripts/kane-loop.mjs" "$ndjson" --out-dir "$ROOT/kane"
+  parse_code=$?
+  set -e
+  if [ "$parse_code" -ne 0 ]; then
+    exit "$parse_code"
+  fi
+fi
 exit "$code"

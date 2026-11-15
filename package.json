@@ -7,12 +7,14 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "start": "node scripts/judge-start.mjs",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "kane": "bash scripts/kane-run.sh kane/flows/payout-reconcile_test.md",
-    "kane:mismatch": "bash scripts/kane-run.sh kane/flows/payout-mismatch_test.md"
+    "kane:mismatch": "bash scripts/kane-run.sh kane/flows/payout-mismatch_test.md",
+    "kane:loop": "node scripts/kane-loop.mjs"
   },
   "devDependencies": {
     "happy-dom": "^20.0.10",

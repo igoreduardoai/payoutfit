@@ -1,0 +1,4 @@
+screen: hero
+input: "A synthetic processor payout CSV, loaded from the Stripe sample button or dropped on the page."
+transformation: "PayoutFit sums the rows in integer cents, keeps chargebacks out of fees, and compares that net with the stated payout."
+result: "The same screen shows the net deposit, Reconciled or Needs review, the breakdown, and a journal whose debits equal its credits."

@@ -2,11 +2,26 @@
 
 Freelance bookkeepers receive a processor payout export in which the bank deposit is not the gross sales figure. Fees, refunds, and chargebacks are in the same file. PayoutFit ties that file out on one screen and writes a journal CSV.
 
-Author: Igor Eduardo (igoreduardoai). Built for the Kane CLI Online Hackathon. Submission deadline 19 November 2026, 12:29 PM CST.
+Author: Igor Eduardo (igoreduardoai). Built for the Kane CLI Online Hackathon. Submission deadline 19 November 2026, 10:29 AM PT (12:29 PM CST), as shown on the hackathon page.
 
 ## 5-second explanation
 
 Load a payout CSV. The big number is the net deposit. Export the journal.
+
+## One command for a judge
+
+Install dependencies once, then start the built app:
+
+```bash
+npm install
+npm start
+```
+
+`npm start` typechecks, builds, and serves the hero at http://127.0.0.1:4173/?sample=stripe-balanced. That URL loads the synthetic Stripe sample: net deposit $320.19, status Reconciled, Chargebacks $89.50. The script also tries to open the URL in a browser.
+
+Measured on 14 November 2026 on the machine that prepared this change. Dependencies were already installed, and `dist/` was removed first. The script printed `Ready in 2.08s` for the typecheck, the build, and the first HTTP 200. A headless Chrome load of that URL showed Net deposit $320.19, Reconciled, and Chargebacks $89.50. Wall clock from `npm start` to that rendered page was 2.47 seconds.
+
+Kane CLI still expects `npm run dev` on port 5173. `npm start` is the preview server on port 4173.
 
 ## Problem
 
@@ -61,7 +76,9 @@ kane-cli testmd run <flow> --agent --headless --timeout 300
 
 `--agent` writes NDJSON to stdout (one JSON object per line). The script stores that stream under `kane/runs/`. Those run files are gitignored. The copies that belong with the repo are in `kane/traces/`. The event to script against is `run_end`. Exit codes follow the CLI: 0 passed, 1 failed, 2 error, 3 timeout.
 
-`.cursor/hooks.json` runs `.cursor/hooks/kane-on-save.sh` on Cursor's `afterFileEdit` hook when a file under `src/`, `fixtures/`, `kane/flows/`, or `index.html` changes. The hook calls the same script. `failClosed` is false, so a failed or skipped run does not block the edit. The result is `kane/runs/last-status.txt`. Runs are debounced for 20 seconds.
+`.cursor/hooks.json` runs `.cursor/hooks/kane-on-save.sh` on Cursor's `afterFileEdit` hook when a file under `src/`, `fixtures/`, `kane/flows/`, or `index.html` changes. The hook calls the same script. When Kane writes NDJSON, `scripts/kane-run.sh` then runs `scripts/kane-loop.mjs`. That script reads the stream, and on a failure it writes the failing step and the assertion text to `kane/last-failure.md` and `kane/last-failure.json`, then exits non-zero. A passing trace exits 0 and the brief says there is nothing to fix. `failClosed` is false, so a failed or skipped run does not block the edit. The Kane status is `kane/runs/last-status.txt`. Runs are debounced for 20 seconds.
+
+`npm run kane:loop -- <ndjson>` parses a trace without starting Kane. The `kane/last-failure.md` in the repo is the parser output for `kane/traces/2026-11-13T153241Z-payout-reconcile-red.ndjson`. `tests/kane-loop.test.ts` reads that red trace, the first green trace, and the green-after-fix trace. Those files are the original runs, not copies.
 
 If `kane-cli` is missing, or `kane-cli whoami` says you are not logged in, or `http://127.0.0.1:5173` is down, the script writes `UNRUN` and the reason, and exits 0. It does not invent a pass.
 
@@ -98,6 +115,8 @@ npm run kane:mismatch
 Chrome has to be installed. Kane CLI launches it. `--headless` is already in the script. The first successful run authors the steps and writes `output-*` next to the flow; later runs replay. Those output folders are gitignored. The dated traces in `kane/traces/` are the committed record.
 
 ## How to run
+
+For a judge, use the command in [One command for a judge](#one-command-for-a-judge). For Kane CLI, which targets port 5173, use the dev server:
 
 ```bash
 npm install
@@ -167,7 +186,8 @@ Amounts are integer cents.
 - A negative amount with no type is not guessed to be a refund or a chargeback.
 - The journal is a summary. It will not list every charge.
 - Kane CLI flows need Chrome, a TestMu AI login, and `npm run dev`. The 13 November 2026 runs, including the red chargeback failure, are recorded in `kane/traces/` and `kane/RED_GREEN.md`. Do not treat a later unrun environment as a pass.
-- No deployment. The repo is not published from here.
+- No deployment. The repo is not published from here. `npm start` serves this machine only.
+- The mid-stage winner-gap package is `gate/`. On 14 November 2026 it failed. The blocking items were B1-five-second, B4-gallery-check, B5-demo-health, and B7-external-confirmation. Those need a person, a gallery check, a hosted URL, or someone outside this repo. The files say so. The gate was not weakened to make them pass.
 
 ## License
 

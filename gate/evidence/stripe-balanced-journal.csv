@@ -1,0 +1,6 @@
+﻿"date","account","memo","debit","credit"
+"2026-11-03","Bank deposit","Stripe-style payout po_synth_stripe_001",320.19,
+"2026-11-03","Processing fees","Stripe-style payout po_synth_stripe_001",29.81,
+"2026-11-03","Refunds","Stripe-style payout po_synth_stripe_001",40.00,
+"2026-11-03","Chargebacks","Stripe-style payout po_synth_stripe_001",89.50,
+"2026-11-03","Sales","Stripe-style payout po_synth_stripe_001",,479.50
