@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+.env.*
+*.local
+.DS_Store
+.testmuai/
+kane/runs/*.ndjson
+kane/runs/*.log
+kane/runs/last-status.txt
+kane/runs/.lock
+
+# Kane first-run output folders (session paths). Evidence copies live in kane/traces/.
+kane/flows/output-*/

@@ -1,0 +1,7 @@
+Date,Type,Currency,Gross,Fee,Net,Transaction ID,Item Title
+11/03/2026,Express Checkout Payment,USD,200.00,-6.10,193.90,SYNTH-PP-001,Synthetic order
+11/03/2026,Express Checkout Payment,USD,60.00,-2.04,57.96,SYNTH-PP-002,Synthetic order
+11/03/2026,Payment Refund,USD,-60.00,0.00,-60.00,SYNTH-PP-003,Synthetic refund
+11/03/2026,Chargeback,USD,-25.00,0.00,-25.00,SYNTH-PP-004,Synthetic chargeback
+11/03/2026,Chargeback Fee,USD,-15.00,0.00,-15.00,SYNTH-PP-005,Synthetic chargeback fee
+11/03/2026,User Initiated Withdrawal,USD,-151.86,0.00,-151.86,SYNTH-PP-006,Synthetic withdrawal

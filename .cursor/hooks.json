@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/kane-on-save.sh",
+        "timeout": 360,
+        "failClosed": false
+      }
+    ]
+  }
+}

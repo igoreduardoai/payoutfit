@@ -1,0 +1,243 @@
+:root {
+  --paper: #efe7d6;
+  --card: #fffdf8;
+  --ink: #1c2430;
+  --muted: #4e5966;
+  --line: #ddd4c2;
+  --green: #1b5e45;
+  --rust: #8c311c;
+  --focus: #1c2430;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(28, 36, 48, 0.045) 28px
+  );
+}
+
+button,
+input,
+label { font: inherit; }
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.top { margin-bottom: 1.5rem; }
+
+.mark {
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-family: Palatino, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.lede {
+  max-width: 38rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.25rem 0 0.4rem;
+}
+
+.file-button,
+.demo,
+.primary {
+  border: 1px solid var(--ink);
+  background: var(--card);
+  color: var(--ink);
+  min-height: 44px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+}
+
+.file-button { position: relative; display: inline-flex; align-items: center; }
+
+.file-button input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.primary {
+  background: var(--ink);
+  color: #fffdf8;
+}
+
+.demo:hover,
+.file-button:hover,
+.primary:hover { transform: translateY(-1px); }
+
+.drop-hint { margin: 0.2rem 0 1.2rem; color: var(--muted); }
+
+#result { display: grid; gap: 0.9rem; }
+
+.hero,
+.panel,
+.empty {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 1.1rem 1.2rem 1.25rem;
+}
+
+.hero.needs-review { border-color: var(--rust); }
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.hero-number {
+  margin: 0.15rem 0 0.35rem;
+  font-family: Palatino, "Iowan Old Style", Georgia, serif;
+  font-size: clamp(3.4rem, 10vw, 6.4rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.hero.needs-review .hero-number { color: var(--rust); }
+
+.meta { margin: 0.4rem 0; color: var(--muted); }
+
+.status {
+  display: inline-block;
+  margin: 0.3rem 0 0;
+  padding: 0.2rem 0.55rem;
+  color: #fffdf8;
+  background: var(--green);
+  font-weight: 700;
+}
+
+.status.needs-review { background: var(--rust); }
+
+h2 {
+  margin: 0 0 0.45rem;
+  font-size: 1.05rem;
+}
+
+.formula,
+.quiet { color: var(--muted); margin: 0 0 0.7rem; }
+
+.break { margin: 0; }
+
+.break-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 0.38rem 0;
+  border-top: 1px dotted var(--line);
+}
+
+.break-row dt,
+.break-row dd { margin: 0; }
+
+.break-row dd {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.flags { margin: 0; padding-left: 1.1rem; }
+
+.flags li { margin: 0.35rem 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th:nth-child(1),
+td:nth-child(1),
+th:nth-child(4),
+td:nth-child(4),
+th:nth-child(5),
+td:nth-child(5) {
+  white-space: nowrap;
+}
+
+th { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.export-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+  margin-top: 0.9rem;
+}
+
+#error-status,
+#export-status { margin: 0; }
+
+.error-panel { border-color: var(--rust); }
+
+footer {
+  margin-top: 1.4rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .page { padding-top: 1.4rem; }
+  .panel { overflow-x: auto; }
+  table { min-width: 40rem; }
+}

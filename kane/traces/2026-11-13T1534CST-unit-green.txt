@@ -1,0 +1,15 @@
+
+> payoutfit@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/hackathons-online/kane/payoutfit
+
+ ✓ tests/reconcile.test.ts (12 tests) 9ms
+ ✓ tests/render.test.ts (2 tests) 13ms
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  09:36:19
+   Duration  425ms (transform 117ms, setup 0ms, collect 128ms, tests 22ms, environment 171ms, prepare 113ms)
+

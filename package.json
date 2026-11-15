@@ -1,0 +1,23 @@
+{
+  "name": "payoutfit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reconcile a processor payout CSV to the net deposit and export a bookkeeping journal.",
+  "author": "Igor Eduardo (igoreduardoai)",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "kane": "bash scripts/kane-run.sh kane/flows/payout-reconcile_test.md",
+    "kane:mismatch": "bash scripts/kane-run.sh kane/flows/payout-mismatch_test.md"
+  },
+  "devDependencies": {
+    "happy-dom": "^20.0.10",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vitest": "^3.2.4"
+  }
+}

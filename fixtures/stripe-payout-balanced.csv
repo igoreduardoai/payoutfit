@@ -1,0 +1,7 @@
+automatic_payout_id,automatic_payout_effective_at,balance_transaction_id,currency,gross,fee,net,reporting_category,description
+po_synth_stripe_001,2026-11-03,txn_synth_stripe_001,usd,240.00,7.26,232.74,charge,"Synthetic invoice, card payment"
+po_synth_stripe_001,2026-11-03,txn_synth_stripe_002,usd,150.00,4.65,145.35,charge,Synthetic invoice
+po_synth_stripe_001,2026-11-03,txn_synth_stripe_003,usd,89.50,2.90,86.60,charge,Synthetic invoice
+po_synth_stripe_001,2026-11-03,txn_synth_stripe_004,usd,-40.00,0.00,-40.00,refund,Synthetic partial refund
+po_synth_stripe_001,2026-11-03,txn_synth_stripe_005,usd,-89.50,15.00,-104.50,dispute,Synthetic chargeback
+po_synth_stripe_001,2026-11-03,txn_synth_stripe_006,usd,-320.19,0.00,-320.19,payout,Synthetic payout

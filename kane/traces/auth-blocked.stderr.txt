@@ -1,0 +1,6 @@
+error: Not authenticated. Choose one:
+  • Pass credentials inline: --username <user> --access-key <key>
+  • Run 'kane-cli login --oauth' (browser-based)
+  • Run 'kane-cli login --username <user> --access-key <key>'
+Skill update available: not installed → 0.1.4 — run `kane-cli install skill`
+
