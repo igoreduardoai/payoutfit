@@ -2,10 +2,25 @@ sponsor_page_url: https://www.kaneclihack.sh/
 sponsor_already_advertises: false
 use_case_compared: "Reconcile a processor payout CSV to a net deposit and a bookkeeping journal."
 unexpected_angle: ""
-note: "Page read on 14 Nov 2026. It asks builders to verify any app with Kane CLI. It does not describe payout journals. Gallery check is not done. Needed: open the hackathon gallery or Discord, count entries with the same differentiator, and record the date and the place. If that differentiator is already common, write the new headline here. This file does not invent that count."
+note: >
+  Official pages reread on 15 Nov 2026, America/Chicago. kaneclihack.sh and the
+  Luma event page describe verifying any app with Kane CLI. They do not describe
+  payout-to-journal reconciliation. The public showcase at
+  https://www.kaneclihack.sh/showcase lists the current online hackathon in a
+  section titled "KaneCLI Online Hackathon" with 8 projects for 12–19 November:
+  Reenact, Kane Intake, Proven, Shipcheck, Ship Gate, Ticket-to-Test (card title
+  Princess Ada-ihuoma), Signoff, and Plumb. Kane Intake is an invoice-intake app
+  with a Kane closed loop; it is not payout-to-journal CSV reconciliation. None
+  of the eight share PayoutFit's differentiator (payout CSV to a net deposit and
+  a bookkeeping journal CSV, with a Kane closed loop). The same showcase also
+  lists a prior in-person gallery, "Kane CLI Hack Day SF", headed "23 projects".
+  https://www.kaneclihack.sh/ship is that hack-day showcase (page heading
+  "43 teams"; 11 project cards rendered). No SF card describes payout-to-journal
+  reconciliation. Luma has no project gallery. The event Slack was not opened
+  (login required). No public Discord showcase was readable without logging in.
 gallery_check:
-  date: null
-  where: ""
-  competitors_with_same_differentiator: null
-  differentiator_common: null
+  date: "2026-11-15"
+  where: "https://www.kaneclihack.sh/showcase (online section, 8 projects, 12-19 November); also https://www.kaneclihack.sh/ship (Kane CLI Hack Day SF) and https://luma.com/kanecli-online-hackathon. Slack/Discord not readable without login."
+  competitors_with_same_differentiator: 0
+  differentiator_common: false
   changed_headline: ""

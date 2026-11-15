@@ -2,8 +2,8 @@ project: PayoutFit
 event: Kane CLI Online Hackathon (TestMu AI)
 author: Igor Eduardo
 links:
-  demo_url: http://127.0.0.1:4173/?sample=stripe-balanced
-  health_url: ""
+  demo_url: https://payoutfit.vercel.app/?sample=stripe-balanced
+  health_url: https://payoutfit.vercel.app/health
   repo_url: https://github.com/igoreduardoai/payoutfit
   video_url: ""
   rules_url: https://www.kaneclihack.sh/

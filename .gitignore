@@ -15,3 +15,5 @@ kane/runs/.lock
 
 # Kane first-run output folders (session paths). Evidence copies live in kane/traces/.
 kane/flows/output-*/
+.vercel
+.env*

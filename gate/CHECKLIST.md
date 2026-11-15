@@ -11,11 +11,11 @@ Boxes are a mirror for the human. The gate reads `evidence/`. Check a box only a
 - [x] B3-sponsor-depth
 - [x] B4-not-obvious
 - [x] B4-vertical
-- [ ] B4-gallery-check
-- [ ] B5-demo-health
+- [x] B4-gallery-check
+- [x] B5-demo-health
 - [x] B6-rules-early
 - [ ] B6-rules-submit
-- [ ] B-public-text
+- [x] B-public-text
 - [ ] B7-external-confirmation
 
 ## Advisory

@@ -1,0 +1,15 @@
+repo_visibility_required: public
+repo_anonymous_test: pass
+video_visibility_required: public
+video_anonymous_test: pending
+license_required: true
+license_present: true
+license_name: MIT
+deadline_reread_on: "2026-11-15"
+deadline_timezone: America/Chicago
+note: >
+  Repo https://github.com/igoreduardoai/payoutfit was made public on 15 Nov 2026
+  and a cookie-less GET returned HTTP 200. Official rules and deadline were
+  reread the same day from https://www.kaneclihack.sh/ and the Luma brief:
+  19 November 2026, 11:59 PM IST / 12:29 PM America/Chicago. The demo video is not on YouTube yet, so video_anonymous_test is not pass.
+  LICENSE is MIT.

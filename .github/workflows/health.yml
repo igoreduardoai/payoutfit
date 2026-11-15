@@ -1,0 +1,24 @@
+name: health
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/health.yml"
+      - "public/health"
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe public /health
+        run: |
+          set -euo pipefail
+          url="https://payoutfit.vercel.app/health"
+          code=$(curl -sS -o /tmp/health-body -w "%{http_code}" -A "payoutfit-health-monitor" "$url")
+          echo "GET $url -> HTTP $code"
+          cat /tmp/health-body
+          echo
+          test "$code" = "200"

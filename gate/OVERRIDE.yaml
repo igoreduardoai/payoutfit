@@ -1,0 +1,22 @@
+owner: Igor Eduardo
+date: "2026-11-15"
+decision: submit_despite_blocking_failures
+statement: >
+  On 15 November 2026 I accept submitting PayoutFit to the Kane CLI Online
+  Hackathon with B1 and B7 failing. I have no outside person for the five-second
+  test or for external confirmation of the journal CSV, and I explicitly override
+  those blocking items in writing.
+items:
+  - id: B1-five-second
+    reason: >
+      Owner decision on 15 Nov 2026: no outside person is available to do the
+      unaided five-second test, and the entry may proceed with this item failing.
+  - id: B1-video-impact-20s
+    reason: >
+      Owner decision on 15 Nov 2026 accepts B1 failing for Kane, including the
+      video-impact item, so a missing or unverified first-20-seconds check must
+      not block the planned 18 Nov submission.
+  - id: B7-external-confirmation
+    reason: >
+      Owner decision on 15 Nov 2026: no outside person will confirm the
+      synthetic journal CSV, and the entry may proceed with B7 failing.
