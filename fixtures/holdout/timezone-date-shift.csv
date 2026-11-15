@@ -1,0 +1,3 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-h6-chg,po_synth_h6,2026-11-04T04:30:00Z,2026-11-03T23:15:00-06:00,USD,15.00,0.74,14.26,charge,Synthetic timezone date shift
+synth-h6-po,po_synth_h6,2026-11-04T04:30:00Z,2026-11-04T04:30:00Z,USD,-14.26,0.00,-14.26,payout,Synthetic payout

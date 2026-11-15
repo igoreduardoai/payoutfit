@@ -1,0 +1,4 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-d6-chg,po_synth_d6,2026-11-16,2026-11-15,USD,20.00,0.00,20.00,charge,Synthetic sale
+synth-d6-po-a,po_synth_d6,2026-11-16,2026-11-16,USD,-20.00,0.00,-20.00,payout,Synthetic payout
+synth-d6-po-b,po_synth_d6,2026-11-16,2026-11-16,USD,5.00,0.00,5.00,payout,Synthetic payout opposite sign

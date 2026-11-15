@@ -20,7 +20,7 @@ Boxes are a mirror for the human. The gate reads `evidence/`. Check a box only a
 
 ## Advisory
 
-- [ ] R-alternatives
+- [x] R-alternatives
 - [ ] R-teammate
 - [ ] R-iteration
 - [ ] R-validation
@@ -29,5 +29,5 @@ Boxes are a mirror for the human. The gate reads `evidence/`. Check a box only a
 - [ ] R-scorecard
 - [ ] R-video-viewer
 - [ ] R-video-opening
-- [ ] R-not-tiny-pilot
+- [x] R-not-tiny-pilot
 - [ ] R-after-proof

@@ -1,0 +1,3 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-h3-chg,po_synth_h3,2026-11-06,2026-11-05,KWD,1.234,0.000,1.234,charge,Synthetic three-decimal minor unit
+synth-h3-po,po_synth_h3,2026-11-06,2026-11-06,KWD,-1.234,0.000,-1.234,payout,Synthetic payout

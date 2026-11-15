@@ -1,0 +1,4 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-h4-chg,po_synth_h4,2026-11-07,2026-11-06,USD,40.00,1.46,38.54,charge,Synthetic sale
+synth-h4-po-a,po_synth_h4,2026-11-07,2026-11-07,USD,-38.54,0.00,-38.54,payout,Synthetic payout
+synth-h4-po-b,po_synth_h4,2026-11-07,2026-11-07,USD,-38.54,0.00,-38.54,payout,Synthetic duplicate payout id

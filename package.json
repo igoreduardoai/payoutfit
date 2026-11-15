@@ -12,12 +12,17 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:e2e": "playwright test",
+    "lighthouse": "node scripts/lighthouse-hero.mjs",
     "kane": "bash scripts/kane-run.sh kane/flows/payout-reconcile_test.md",
     "kane:mismatch": "bash scripts/kane-run.sh kane/flows/payout-mismatch_test.md",
     "kane:loop": "node scripts/kane-loop.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.57.0",
     "happy-dom": "^20.0.10",
+    "lighthouse": "^12.8.2",
     "typescript": "^5.9.3",
     "vite": "^7.2.2",
     "vitest": "^3.2.4"

@@ -40,11 +40,11 @@ async function waitFor(target) {
 await run("npx", ["tsc", "--noEmit"]);
 await run("npx", ["vite", "build"]);
 
-const preview = spawn(
-  "npx",
-  ["vite", "preview", "--host", "127.0.0.1", "--port", "4173", "--strictPort", "--open", "/?sample=stripe-balanced"],
-  { stdio: "inherit" },
-);
+const previewArgs = ["vite", "preview", "--host", "127.0.0.1", "--port", "4173", "--strictPort"];
+if (!process.env.CI && !process.env.PAYOUTFIT_NO_OPEN) {
+  previewArgs.push("--open", "/?sample=stripe-balanced");
+}
+const preview = spawn("npx", previewArgs, { stdio: "inherit" });
 
 try {
   await waitFor(url);

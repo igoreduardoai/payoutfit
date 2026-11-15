@@ -1,0 +1,3 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-h7-ref,po_synth_h7,2026-11-09,2026-11-08,USD,40.00,0.00,40.00,refund,Synthetic reversed sign
+synth-h7-po,po_synth_h7,2026-11-09,2026-11-09,USD,-40.00,0.00,-40.00,payout,Synthetic payout

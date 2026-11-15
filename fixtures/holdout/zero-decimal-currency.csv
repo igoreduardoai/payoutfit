@@ -1,0 +1,3 @@
+id,payout_id,payout_date,date,currency,gross,fee,net,type,description
+synth-h8-chg,po_synth_h8,2026-11-10,2026-11-09,JPY,1000,36,964,charge,Synthetic zero-decimal currency
+synth-h8-po,po_synth_h8,2026-11-10,2026-11-10,JPY,-964,0,-964,payout,Synthetic payout

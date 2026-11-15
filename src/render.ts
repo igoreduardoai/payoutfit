@@ -179,9 +179,11 @@ export function renderShell(demoLabels: Array<{ id: string; label: string }>): H
         "A payout file is not the sales number. Load it, read the net deposit, and export the journal.",
       ]),
     ]),
-    controls,
-    drop,
-    el("section", { id: "result", "aria-live": "polite" }, [renderEmpty()]),
+    el("main", {}, [
+      controls,
+      drop,
+      el("section", { id: "result", "aria-live": "polite" }, [renderEmpty()]),
+    ]),
     el("footer", {}, [
       "Samples are synthetic. Imported files stay in this browser and are not uploaded.",
     ]),

@@ -1,3 +1,9 @@
-alternatives: []
-why_chosen: ""
-note: "Three other ideas, and a reason this one was chosen, were not written down. This file does not invent them."
+alternatives:
+  - name: "Kane flow recorder"
+    why_not: "A harness that only turns a local page into a test.md flow has no bookkeeping screen. The hackathon already asks every entry to verify an app with Kane CLI, so a recorder testing itself is not the product."
+  - name: "Live processor connector"
+    why_not: "Pulling a Stripe or PayPal payout through their API needs a secret and a hosted callback. This entry is a file the reader already has, with no upload and no API key, so a judge can run it with npm start."
+  - name: "General bank matcher"
+    why_not: "Matching any bank CSV to any set of invoices drops the one payout shape. Gross, fee, net, refund, chargeback, and the payout row are the task, and a chargeback folded into fees still looks balanced."
+why_chosen: "PayoutFit keeps the input as a payout file, the screen as one net deposit, and the output as a journal CSV. Kane CLI is the proof layer on that screen: the red run named the chargeback line without moving the hero number. The other three ideas were a test tool with no product, a live API this repo does not call, and a general matcher that loses that tie-out."
+note: "These are the design reasons for this entry. They are not interviews, and they are not a claim that anyone else rejected those ideas."

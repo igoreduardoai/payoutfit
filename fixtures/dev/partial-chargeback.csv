@@ -1,0 +1,4 @@
+automatic_payout_id,automatic_payout_effective_at,balance_transaction_id,currency,gross,fee,net,reporting_category,description
+po_synth_d8,2026-11-18,txn_synth_d8_chg,usd,50.00,1.75,48.25,charge,Synthetic invoice
+po_synth_d8,2026-11-18,txn_synth_d8_cb,usd,-20.00,15.00,-35.00,dispute,Synthetic partial chargeback
+po_synth_d8,2026-11-18,txn_synth_d8_po,usd,-13.25,0.00,-13.25,payout,Synthetic payout
