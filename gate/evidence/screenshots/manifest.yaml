@@ -1,0 +1,42 @@
+images:
+  - file: evidence/screenshots/01-hero.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "Stripe sample hero at /?sample=stripe-balanced. Net deposit $320.19, Reconciled."
+  - file: evidence/screenshots/02-failure-case.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "Mismatch sample. Net deposit $335.19, Needs review, difference $15.00."
+  - file: evidence/screenshots/03-fix-brief.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "Text of kane/last-failure.md opened in the Playwright browser. PayoutFit does not serve this page."
+  - file: evidence/screenshots/04-green-run.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "Stripe sample after the chargeback fix. Fees $29.81, Chargebacks $89.50, debits equal credits $479.50."
+  - file: evidence/screenshots/05-judge-preview.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "Journal preview on the Stripe sample, including Export bookkeeping CSV."
+  - file: evidence/screenshots/06-health.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "GET /health on the local preview. Body {\"status\":\"ok\",\"service\":\"payoutfit\"}."
+  - file: evidence/screenshots/07-empty.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "App at / before a sample is loaded. No payout loaded."
+  - file: evidence/screenshots/08-paypal.png
+    kind: screenshot
+    source: playwright
+    generated: false
+    caption: "PayPal sample. Net deposit $151.86, Reconciled."
+note: "Captured 2026-11-18 by Playwright 1.65.1 against npm start at http://127.0.0.1:4173, viewport 1280x800. The same bytes are in gallery/. Captions are in gallery/CAPTIONS.md."

@@ -12,6 +12,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:pytest": "python3 -m pytest tests/py -vv",
     "test:e2e": "playwright test",
     "lighthouse": "node scripts/lighthouse-hero.mjs",
     "kane": "bash scripts/kane-run.sh kane/flows/payout-reconcile_test.md",

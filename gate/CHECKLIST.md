@@ -14,7 +14,7 @@ Boxes are a mirror for the human. The gate reads `evidence/`. Check a box only a
 - [x] B4-gallery-check
 - [x] B5-demo-health
 - [x] B6-rules-early
-- [ ] B6-rules-submit
+- [x] B6-rules-submit
 - [x] B-public-text
 - [ ] B7-external-confirmation
 
@@ -23,10 +23,10 @@ Boxes are a mirror for the human. The gate reads `evidence/`. Check a box only a
 - [x] R-alternatives
 - [ ] R-teammate
 - [ ] R-iteration
-- [ ] R-validation
-- [ ] R-screenshots
-- [ ] R-built-with
-- [ ] R-scorecard
+- [x] R-validation
+- [x] R-screenshots
+- [x] R-built-with
+- [x] R-scorecard
 - [ ] R-video-viewer
 - [ ] R-video-opening
 - [x] R-not-tiny-pilot
