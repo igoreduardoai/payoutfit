@@ -1,0 +1,44 @@
+tested:
+  - name: Vitest
+    value: "30 passed, 6 files, Vitest 3.2.7, 2026-11-18T15:07:58Z, exit 0"
+  - name: pytest
+    value: "4 passed, pytest 9.2.0, 0.77s, 2026-11-18T15:08:43Z, exit 0"
+  - name: Playwright
+    value: "11 passed, Playwright 1.65.1, 4.8s, 2026-11-18T15:08:44Z, exit 0"
+  - name: axe-core violations on the Stripe hero
+    value: "0"
+  - name: Lighthouse performance on the hero
+    value: "100"
+  - name: Lighthouse accessibility, best-practices, seo
+    value: "100, 100, 100"
+  - name: Holdout bundle sha256
+    value: "eeaa04628302fe4e6a1a14d9bed611771b7659df7c431e24d11d5b79618f9aa7"
+  - name: GitHub anonymous GET
+    value: "200 at 2026-11-18T15:05:50Z"
+  - name: YouTube oEmbed anonymous GET
+    value: "200 at 2026-11-18T15:05:50Z"
+  - name: Live GET https://payoutfit.vercel.app/health
+    value: "200 at 2026-11-18T15:12:03Z, body {\"status\":\"ok\",\"service\":\"payoutfit\"}"
+failed:
+  - name: pytest before it was installed
+    detail: "python3 -m pytest at 2026-11-18T15:07:59Z exited 1 with 'No module named pytest'. The passing result is the later run after pip install."
+  - name: first Playwright gallery run
+    detail: "npm run test:e2e at 2026-11-18T15:08:05Z exited 1. 10 passed and the new journal-preview locator matched two sections. The rerun after the locator was narrowed passed 11. The hero text was not edited."
+  - name: Lighthouse diagnostic audits
+    detail: "render-blocking-resources, network-dependency-tree-insight, and render-blocking-insight scored 0 on the 2026-11-18T15:08:08.495Z mobile run. Category scores stayed 100."
+  - name: reversed-sign journal
+    detail: "The Vitest dev-fixtures case reversed-sign-charge.csv still expects an unbalanced journal: debits 12.00, credits 36.00, journalBalances false. That case passed, so the limit is still there."
+  - name: Kane CLI in this environment
+    detail: "kane-cli was not on PATH on 18 Nov 2026. This run did not produce a new Kane trace. The 13 Nov traces stay the Kane record."
+  - name: five-second test
+    detail: "No outside person named the product from the hero. evidence/five-second.yaml is unchanged. The 15 Nov owner override still covers B1-five-second."
+  - name: first 20 seconds of the video
+    detail: "evidence/video.yaml is still missing. The 15 Nov owner override still covers B1-video-impact-20s. This run did not watch the video."
+  - name: video viewer
+    detail: "No person answered what the video does, for whom, and what stood out. R-video-viewer stays failed."
+  - name: teammate
+    detail: "sought_at_kickoff is not true. Nothing was posted from this run."
+  - name: iteration signal
+    detail: "The iteration log is still the Kane CLI traces. The submit gate counts 0 real-signal rounds."
+  - name: external confirmation
+    detail: "No third party confirmed the journal. OVERRIDE.yaml still names B7-external-confirmation. The 18 Nov spec has no B7 criterion, so the gate reports that override as unused."

@@ -1,0 +1,94 @@
+# winner-gap gate — PayoutFit — stage submit
+spec: winner-gap-2026-11-09
+event: Kane CLI Online Hackathon (TestMu AI)
+
+## Blocking
+- [PASS] B1-storyboard: Hero screen shows input, transformation, and result
+  Hero storyboard names the input, the transformation, and the result.
+  evidence: evidence/hero-storyboard.yaml
+- [OVERRIDE] B1-five-second: One person names the product from the hero screen with no narration
+  OWNER OVERRIDE by Igor Eduardo on 2026-11-15: Owner decision on 15 Nov 2026: no outside person is available to do the unaided five-second test, and the entry may proceed with this item failing. | evidence was: evidence/five-second.yaml: unaided must be true; narration must be false; what_they_said is missing; witness_role is missing; date is missing.
+  evidence: evidence/five-second.yaml
+- [OVERRIDE] B1-video-impact-20s: Video shows the hero screen and the impact inside the first 20 seconds
+  OWNER OVERRIDE by Igor Eduardo on 2026-11-15: Owner decision on 15 Nov 2026 accepts B1 failing for Kane, including the video-impact item, so a missing or unverified first-20-seconds check must not block the planned 18 Nov submission. | evidence was: missing evidence file evidence/video.yaml
+  evidence: evidence/video.yaml
+- [PASS] B2-final-action: Final output is a usable action or artifact, not a ranking
+  Final action is csv_export: Exports a balanced journal CSV a bookkeeper imports into a ledger.
+  evidence: evidence/final-action.yaml
+- [PASS] B3-sponsor-depth: At least three sponsor capabilities on the critical path, with a with/without comparison
+  3 critical-path capabilities; Chargebacks dollars: without 0, with 89.5.
+  evidence: evidence/sponsor-matrix.yaml
+- [PASS] B4-not-obvious: Idea is not the use case the sponsor already advertises, or the unexpected angle is written down
+  Sponsor page checked; the use case is not one they already advertise.
+  evidence: evidence/not-obvious.yaml
+- [PASS] B4-vertical: One named role, one task, one current workaround
+  Vertical user: freelance bookkeeper; task and current workaround are written down.
+  evidence: evidence/vertical.yaml
+- [PASS] B5-demo-health: Stable demo URL and a /health monitor; anonymous 200 at submission
+  Recorded stable demo https://payoutfit.vercel.app/health. Monitor: .github/workflows/health.yml. Not probed.
+  evidence: evidence/demo-health.yaml
+- [PASS] B6-rules-early: Eligibility, rules, and visibility read from the official source, in CST
+  Official rules read on 2026-11-14 (America/Chicago).
+  evidence: evidence/rules-early.yaml
+- [FAIL] B6-rules-submit: Repo and video visibility tested anonymous; license and CST deadline reread
+  evidence/rules-submit.yaml: video_anonymous_test is not pass.
+  evidence: evidence/rules-submit.yaml
+- [PASS] B-public-text: Submission text keeps real credentials only and leaves private identity out
+  Public-text declaration is true and the package text has no forbidden substring.
+  evidence: evidence/public-text.yaml
+
+## Advisory
+- [PASS] R-alternatives: Three alternative ideas and the reason this one was chosen
+  Three alternatives are recorded, with the reason this one was chosen.
+  evidence: evidence/alternatives.yaml
+- [FAIL] R-teammate: A teammate was sought at kickoff; nothing was posted without the owner's OK
+  evidence/teammate.yaml: sought_at_kickoff is not true.
+  evidence: evidence/teammate.yaml
+- [FAIL] R-iteration: Iteration log against a real signal, not a scripted judge
+  evidence/iteration-log.yaml: 0 real-signal round(s) and 0 scripted. Need at least 3 rounds against a real signal. Scripted judges are simulations, not proof. Detail: kane-cli; kane-cli; kane-cli; kane-cli.
+  evidence: evidence/iteration-log.yaml
+- [FAIL] R-validation: Recorded pytest, Playwright, axe, Lighthouse, and untouched gold/holdout
+  evidence/validation.yaml: pytest is not pass. These are recorded claims; this command does not re-run the suites.
+  evidence: evidence/validation.yaml
+- [FAIL] R-screenshots: At least eight real screenshots
+  missing evidence file evidence/screenshots/manifest.yaml
+  evidence: evidence/screenshots/manifest.yaml
+- [FAIL] R-built-with: At least twelve true Built With tags, including the sponsor and the flagship
+  missing evidence file evidence/built-with.yaml
+  evidence: evidence/built-with.yaml
+- [FAIL] R-scorecard: Scorecard with numbers and what did not work
+  missing evidence file evidence/scorecard.yaml
+  evidence: evidence/scorecard.yaml
+- [FAIL] R-video-viewer: One real person watched the video and answered three questions
+  missing evidence file evidence/video-viewer.yaml
+  evidence: evidence/video-viewer.yaml
+
+## Owner override (logged, not silent)
+- file: OVERRIDE.yaml
+- valid: True
+- owner: Igor Eduardo
+- date: 2026-11-15
+- decision: submit_despite_blocking_failures
+- statement: On 15 November 2026 I accept submitting PayoutFit to the Kane CLI Online Hackathon with B1 and B7 failing. I have no outside person for the five-second test or for external confirmation of the journal CSV, and I explicitly override those blocking items in writing.
+- applied: B1-five-second: Owner decision on 15 Nov 2026: no outside person is available to do the unaided five-second test, and the entry may proceed with this item failing.
+- applied: B1-video-impact-20s: Owner decision on 15 Nov 2026 accepts B1 failing for Kane, including the video-impact item, so a missing or unverified first-20-seconds check must not block the planned 18 Nov submission.
+- ignored: B7-external-confirmation: unknown criterion
+
+Blocking failed: B6-rules-submit
+Advisory: 1/8 (0.12); target >= 0.70
+Verdict: FAIL
+
+## Warnings
+- HEALTH_UNPROBED: demo health is a recorded claim in evidence/demo-health.yaml. Re-run with --probe to hit the URL.
+- OVERRIDE_UNUSED: B7-external-confirmation ignored (unknown criterion).
+- CHECKLIST_UNKNOWN: line 14 marks B4-gallery-check, which is not in the spec.
+- CHECKLIST_UNKNOWN: line 19 marks B7-external-confirmation, which is not in the spec.
+- CHECKLIST_UNKNOWN: line 31 marks R-video-opening, which is not in the spec.
+- CHECKLIST_UNKNOWN: line 32 marks R-not-tiny-pilot, which is not in the spec.
+- ADVISORY_BELOW_TARGET: advisory 1/8 (0.12) is below 0.70.
+
+## Limits
+- A checked box is not evidence. Missing evidence fails the item.
+- Scripted judges are simulations, not proof. This command never calls a model.
+- Without --probe, a health status is a recorded claim, not a live check.
+- Screenshot files are counted, not visually verified.

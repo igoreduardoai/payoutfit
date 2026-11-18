@@ -1,15 +1,45 @@
 repo_visibility_required: public
 repo_anonymous_test: pass
 video_visibility_required: public
-video_anonymous_test: pending
+video_anonymous_test: pass
 license_required: true
 license_present: true
 license_name: MIT
-deadline_reread_on: "2026-11-15"
+license_spdx: MIT
+deadline_reread_on: "2026-11-18"
 deadline_timezone: America/Chicago
-note: >
-  Repo https://github.com/igoreduardoai/payoutfit was made public on 15 Nov 2026
-  and a cookie-less GET returned HTTP 200. Official rules and deadline were
-  reread the same day from https://www.kaneclihack.sh/ and the Luma brief:
-  19 November 2026, 11:59 PM IST / 12:29 PM America/Chicago. The demo video is not on YouTube yet, so video_anonymous_test is not pass.
-  LICENSE is MIT.
+deadline: "26 Nov 2026, 12:29 PM America/Chicago (10:29 AM PT)"
+deadline_source: "organizer email 18 Nov 2026"
+checks:
+  - name: github_repo
+    method: GET
+    url: https://github.com/igoreduardoai/payoutfit
+    authenticated: false
+    when: "2026-11-18T15:05:50Z"
+    http_date: "Wed, 18 Nov 2026 15:05:50 GMT"
+    status: 200
+    detail: "curl with GH_TOKEN and GITHUB_TOKEN unset. HTTP/2 200. Set-cookie included logged_in=no. HTML title: GitHub - igoreduardoai/payoutfit: PayoutFit — Kane CLI Online Hackathon 2026 · GitHub."
+  - name: youtube_oembed
+    method: GET
+    url: https://www.youtube.com/oembed?url=https://youtu.be/wJssr9YzPeo&format=json
+    page: https://youtu.be/wJssr9YzPeo
+    authenticated: false
+    when: "2026-11-18T15:05:50Z"
+    http_date: "Wed, 18 Nov 2026 15:05:50 GMT"
+    status: 200
+    detail: "HTTP/2 200, content-type application/json. title: PayoutFit: payout CSV to bookkeeping journal, verified with Kane CLI (#KaneCLIHackDay). author_name: Igor Eduardo. provider_name: YouTube."
+  - name: license_file
+    path: LICENSE
+    present: true
+    spdx_id: MIT
+    detail: "LICENSE is at the repo root. The first line is MIT License."
+  - name: github_license_api
+    method: GET
+    url: https://api.github.com/repos/igoreduardoai/payoutfit/license
+    authenticated: false
+    when: "2026-11-18T15:05:50Z"
+    http_date: "Wed, 18 Nov 2026 15:05:50 GMT"
+    status: 200
+    spdx_id: MIT
+    detail: "Unauthenticated Accept: application/vnd.github+json. license.spdx_id MIT, license.name MIT License, path LICENSE."
+note: "Anonymous means no Authorization header and the GitHub cookie logged_in=no. The deadline text is the organizer email of 18 Nov 2026, restated here on 2026-11-18. This file does not claim the hackathon page was fetched again that day."

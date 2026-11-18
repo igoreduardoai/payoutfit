@@ -1,0 +1,42 @@
+pytest: pass
+playwright_e2e: pass
+axe_violations: 0
+lighthouse_hero: 100
+gold_untouched: true
+holdout_untouched: true
+unit_runner: vitest
+when: "2026-11-18T15:08:49Z"
+commands:
+  - command: npm test
+    when: "2026-11-18T15:07:58Z"
+    exit: 0
+    result: "Vitest 3.2.7 passed 30 tests in 6 files (657ms). holdout.report 2, dev-fixtures 8, reconcile 12, fixture-inventory 1, kane-loop 5, render 2."
+  - command: python3 -m pytest tests/py -vv
+    when: "2026-11-18T15:07:59Z"
+    exit: 1
+    result: "First attempt failed before collection: /usr/bin/python3: No module named pytest. Holdout files were not edited."
+  - command: python3 -m pip install 'pytest>=8'
+    when: "2026-11-18T15:08:43Z"
+    exit: 0
+    result: "Installed pytest 9.2.0 (pluggy 1.7.0) for Python 3.12.3."
+  - command: python3 -m pytest tests/py -vv
+    when: "2026-11-18T15:08:43Z"
+    exit: 0
+    result: "pytest 9.2.0 passed 4 tests in 0.77s. SHA256SUMS matched the holdout files. The bundle hash matched fixtures/holdout/BUNDLE_SHA256.txt (eeaa04628302fe4e6a1a14d9bed611771b7659df7c431e24d11d5b79618f9aa7). expected.json lists the same 8 synthetic CSVs. The nested command npx vitest run tests/holdout.report.test.ts passed 2 tests."
+  - command: npm run test:e2e
+    when: "2026-11-18T15:08:05Z"
+    exit: 1
+    result: "Playwright 1.65.1, first run, 10 passed and 1 failed in 5.7s. The new journal-preview locator matched two section elements. The app text was not changed. axe-core 4.14.0 on the Stripe hero passed in that run."
+  - command: npm run test:e2e
+    when: "2026-11-18T15:08:44Z"
+    exit: 0
+    result: "Playwright 1.65.1 passed 11 tests in 4.8s against npm start at http://127.0.0.1:4173. Stripe hero $320.19, Reconciled, Chargebacks $89.50, Fees $29.81. Mismatch sample $335.19, Needs review, difference $15.00. PayPal sample $151.86, Reconciled. /health body contained {\"status\":\"ok\",\"service\":\"payoutfit\"}. axe-core on the Stripe hero passed, which is the assertion that the violations list is empty, so axe_violations is 0. Eight PNGs were written to gallery/."
+  - command: npm run lighthouse
+    when: "2026-11-18T15:08:08.495Z"
+    exit: 0
+    result: "Lighthouse 12.8.2, mobile, on http://127.0.0.1:4173/?sample=stripe-balanced. Category scores: performance 100, accessibility 100, best-practices 100, seo 100. lighthouse_hero is the performance score. Three diagnostic audits still scored 0 (render-blocking-resources, network-dependency-tree-insight, render-blocking-insight) and did not lower the category scores. See gate/evidence/lighthouse-hero.json."
+holdout:
+  bundle_sha256: eeaa04628302fe4e6a1a14d9bed611771b7659df7c431e24d11d5b79618f9aa7
+  git_hash_object_before_and_after: identical
+  files_edited: false
+note: "pytest: pass is the 18 November 2026 run of tests/py after pytest 9.2.0 was installed. Those tests read the holdout and do not write it. Vitest remains the unit runner. The gate records this file; it does not re-run the suites."

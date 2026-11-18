@@ -2,7 +2,7 @@
 
 Freelance bookkeepers receive a processor payout export in which the bank deposit is not the gross sales figure. Fees, refunds, and chargebacks are in the same file. PayoutFit ties that file out on one screen and writes a journal CSV.
 
-Author: Igor Eduardo (igoreduardoai). Built for the Kane CLI Online Hackathon. Submission deadline 19 November 2026, 10:29 AM PT (12:29 PM CST), as shown on the hackathon page.
+Author: Igor Eduardo (igoreduardoai). Built for the Kane CLI Online Hackathon. Submission deadline 26 November 2026, 10:29 AM PT (12:29 PM America/Chicago). An organizer email on 18 November 2026 extended the deadline. The hackathon page read on 14 November 2026 showed 19 November 2026, 10:29 AM PT.
 
 ## 5-second explanation
 
@@ -127,13 +127,15 @@ Open http://127.0.0.1:5173. Use **Load Stripe sample**, **Load PayPal sample**, 
 
 ```bash
 npm test
+python3 -m pip install -r requirements-dev.txt
+python3 -m pytest tests/py -vv
 npm run build
 npm run test:e2e
 npm run lighthouse
 npm run preview
 ```
 
-On 15 November 2026, `npm test` passed 30 Vitest tests in 6 files. `npm run test:e2e` passed 3 Playwright tests against `npm start`: the Stripe hero showed net deposit $320.19, Reconciled, and Chargebacks $89.50, and the mismatch sample showed $335.19 and Needs review. axe-core on that hero reported 0 violations. `npm run lighthouse` (Lighthouse 12.8.2, mobile) scored performance 100, accessibility 100, best-practices 100, and seo 100. Three diagnostic audits still scored 0 and did not lower those category scores. The summary is `gate/evidence/lighthouse-hero.json`. pytest was not run. Vitest is the runner.
+On 18 November 2026 the same commands were run again, plus pytest. Vitest 3.2.7 passed 30 tests in 6 files. pytest 9.2.0 passed 4 tests, including the untouched holdout hash and the two holdout Vitest tests. Playwright 1.65.1 passed 11 tests against `npm start`: the earlier 3, plus 8 screenshots in `gallery/`. The Stripe hero still showed net deposit $320.19, Reconciled, and Chargebacks $89.50. The mismatch sample showed $335.19 and Needs review. axe-core 4.14.0 on that hero reported 0 violations. Lighthouse 12.8.2, mobile, at 2026-11-18T15:08:08.495Z scored performance 100, accessibility 100, best-practices 100, and seo 100. Three diagnostic audits still scored 0 and did not lower those category scores. The counts and commands are in `docs/VALIDATION.md`.
 
 `npm run preview` serves the static build at http://127.0.0.1:4173. The Kane flows are pointed at port 5173, so use `npm run dev` when you run them. A sample deep link works on either server: `http://127.0.0.1:5173/?sample=stripe-balanced`.
 
@@ -200,8 +202,8 @@ Amounts are integer cents.
 - A negative amount with no type is not guessed to be a refund or a chargeback.
 - The journal is a summary. It will not list every charge.
 - Kane CLI flows need Chrome, a TestMu AI login, and `npm run dev`. The 13 November 2026 runs, including the red chargeback failure, are recorded in `kane/traces/` and `kane/RED_GREEN.md`. Do not treat a later unrun environment as a pass.
-- No deployment. The repo is not published from here. `npm start` serves this machine only.
-- The mid-stage winner-gap package is `gate/`. On 14 November 2026 it failed, advisory 0/5, with blocking failures B1-five-second, B4-gallery-check, B5-demo-health, and B7-external-confirmation. On 15 November 2026 the same checker still failed those four. Advisory was 2/5: alternatives and the 20-case set passed. Validation stayed failed because the checker requires `pytest: pass` and this repo's suite is Vitest. The recorded Playwright, axe, and Lighthouse runs are in `gate/evidence/validation.yaml`. The gate was not weakened to make the remaining items pass.
+- The public demo already recorded in `gate/evidence/demo-health.yaml` is https://payoutfit.vercel.app. This change does not deploy. `npm start` serves this machine.
+- The winner-gap package is `gate/`. On 14 November 2026 the mid stage failed, advisory 0/5, with blocking failures B1-five-second, B4-gallery-check, B5-demo-health, and B7-external-confirmation. On 15 November 2026 that checker still failed those four. Advisory was 2/5. On 18 November 2026 the submit stage of `judge_stack` on hackathon-lab `main` (`dd6eb76a0eee10e705b0c5f79c0b53e1a707ff43`) was run before and after this evidence. The outputs are in `gate-runs/`. Owner overrides for B1 and B7 were left as written on 15 November 2026. No five-second test, external confirmation, video viewer, or teammate evidence was added.
 
 ## License
 
