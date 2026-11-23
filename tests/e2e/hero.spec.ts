@@ -15,3 +15,12 @@ test("runs the mismatch sample and shows the review result", async ({ page }) =>
   await expect(page.getByTestId("status")).toHaveText("Needs review");
   await expect(page.getByTestId("flags")).toContainText("$15.00");
 });
+
+test("puts the net deposit and the export action in the first mobile viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/?sample=stripe-balanced");
+  await expect(page.getByTestId("net-deposit")).toBeInViewport();
+  await expect(page.getByRole("button", { name: "Export bookkeeping CSV" })).toBeInViewport();
+  await page.getByRole("button", { name: "Export bookkeeping CSV" }).click();
+  await expect(page.getByTestId("export-status")).toContainText("Debits equal credits.");
+});
