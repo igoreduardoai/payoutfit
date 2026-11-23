@@ -16,7 +16,8 @@ function present(csv: string, filename: string): void {
   const outcome = reconcileCsv(csv, filename);
   currentJournal = outcome.ok ? outcome.journal : null;
   const region = resultNode();
-  region.replaceChildren(renderOutcome(outcome));
+  region.replaceChildren(renderOutcome(outcome, csv));
+  markSample(filename);
   document.getElementById("export-journal")?.addEventListener("click", () => {
     if (!currentJournal) return;
     const csvText = journalToCsv(currentJournal);
@@ -38,6 +39,13 @@ function present(csv: string, filename: string): void {
   });
 }
 
+function markSample(filename: string): void {
+  for (const button of document.querySelectorAll<HTMLButtonElement>("button[data-demo]")) {
+    const demo = demoById(button.getAttribute("data-demo") ?? "");
+    button.setAttribute("aria-pressed", demo?.filename === filename ? "true" : "false");
+  }
+}
+
 function readFile(file: File): void {
   const reader = new FileReader();
   reader.onload = () => {
@@ -48,7 +56,7 @@ function readFile(file: File): void {
     currentJournal = null;
     resultNode().replaceChildren(renderEmpty());
     const note = document.createElement("p");
-    note.className = "error-panel";
+    note.className = "mt-4 rounded-xl bg-err-bg p-4 text-sm text-err";
     note.textContent = "That file could not be read.";
     resultNode().append(note);
   };
